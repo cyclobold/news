@@ -1,25 +1,68 @@
+import React from "react"
 import logo from './logo.svg';
 import './App.css';
+import Login from "./Components/Login/Login"
+import Register from "./Components/Register/Register"
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 
-function App() {
-  return (
-    <div className="App">
+class App extends React.Component{
+
+  constructor(){
+    super()
+
+    this.state = {
+      current_page: 'login'
+    }
+  }
+
+  loadRegisterPage = () => {
+
+    this.setState({
+      current_page: "register"
+    })
+
+
+  }
+
+  loadLoginPage = () => {
+
+    this.setState({
+      current_page: "login"
+    })
+
+
+  }
+
+
+  render(){
+    let current_page = this.state.current_page
+
+    let currentUserPage;
+    switch(current_page){
+      case "login":
+        currentUserPage = <Login loadRegister={this.loadRegisterPage} />
+        break
+      
+      case "register":
+          currentUserPage = <Register loadLogin={this.loadLoginPage} />
+          break
+    }
+
+
+    return (
+      <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+       {currentUserPage}
       </header>
     </div>
-  );
+      
+    )
+
+  }
+
+
+
+
 }
 
-export default App;
+export default App
